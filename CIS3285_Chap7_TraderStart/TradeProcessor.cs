@@ -121,13 +121,22 @@ public class TradeProcessor
         //    The @ sign allows for back slashes
         //    Watch for double quotes which must be escaped using "" 
         //    Watch for extra spaces after C: and avoid paths with - hyphens -
-        string genericConnectString = @"Data Source=(local);Initial Catalog=TradeDatabase;Integrated Security=True;";
         // The datadirConnectString connection string uses |DataDirectory| 
         //    and assumes the tradedatabase.mdf file is stored in 
         //    SingleResponsibilityPrinciple\bin\Debug 
-        string datadirConnectString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\tradedatabase.mdf;Integrated Security=True;Connect Timeout=30;";
         // This users the Azure connection string
-        string azureConnectString = @"Data Source=cis3115-server.database.windows.net;Initial Catalog=CIS3115;User ID=cis3115;Password=Saints4SQL;Connect Timeout=60;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        string genericConnectString = @"Data Source=(local);Initial Catalog=TradeDatabase;Integrated Security=True;";
+        string datadirConnectString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\tradedatabase.mdf;Integrated Security=True;Connect Timeout=30;";
+        string azureConnectString = @"Server=tcp:cis3285-sql-server.database.windows.net,1433; Initial Catalog = Unit8_TradesDatabase; Persist Security Info=False; User ID=cis3285;Password=Saints2026SQL; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 60;";
+        string tomConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\tgibbons\Documents\tradedatabase.mdf;Integrated Security=True;Connect Timeout=30";
+
+        // =========== it is a security risk to store the connection string in the code.  It is better to use an environment variable ========== 
+        // var connectionString = Environment.GetEnvironmentVariable("CIS3285_TRADER_CONNECTION_STRING");
+        // if (string.IsNullOrWhiteSpace(connectionString))
+        // {
+        //     throw new InvalidOperationException(
+        //         "Set the CIS3285_TRADER_CONNECTION_STRING environment variable to connect to the trade database.");
+        // }
 
         // Change the connection string used to match the one you want
         using (var connection = new Microsoft.Data.SqlClient.SqlConnection(azureConnectString))

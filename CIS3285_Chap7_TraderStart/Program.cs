@@ -6,11 +6,16 @@ class Program
 {
     static void Main(string[] args)
     {
-        var tradeStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("CIS3285_Unit8_Mac.trades.txt");
+        using var tradeStream = Assembly.GetExecutingAssembly()
+            .GetManifestResourceStream("CIS3285_Chap7_TraderStart.trades.txt");
+        if (tradeStream is null)
+        {
+            Console.Error.WriteLine("Could not find the embedded trades.txt file.");
+            return;
+        }
 
         var tradeProcessor = new TradeProcessor();
         tradeProcessor.ProcessTrades(tradeStream);
 
-        Console.ReadKey();
     }
 }
